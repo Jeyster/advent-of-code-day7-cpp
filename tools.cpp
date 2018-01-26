@@ -48,10 +48,11 @@ Program createProgFromInput(string inputString)
     vector<string> holdingPrograms;
     if(progVector.size() > 2)
     {
-        for(int i(3); i != progVector.size(); ++i)
+        for(int i(3); i != progVector.size()-1; ++i)
         {
             holdingPrograms.push_back(progVector[i].substr(0,progVector[i].size()-1));
         }
+        holdingPrograms.push_back(progVector[progVector.size()-1]);
     }
 
     Program program(name, weight, holdingPrograms);
@@ -73,7 +74,7 @@ Program findProgramByName(vector<Program> &programs, string const &name)
 {
     for(int i(0); i != programs.size(); ++i)
     {
-        if(programs[i].getName() == name.c_str())
+        if(programs[i].getName() == name)
         {
             return programs[i];
         }
@@ -81,7 +82,7 @@ Program findProgramByName(vector<Program> &programs, string const &name)
     return Program();
 }
 
-void setHoldingPrograms(vector<Program> &programs)
+void setAllHoldingPrograms(vector<Program> &programs)
 {
     for(int i(0); i != programs.size(); ++i)
     {
@@ -91,6 +92,7 @@ void setHoldingPrograms(vector<Program> &programs)
             vector<Program> holdingPrograms;
             for(int j(0); j != holdingProgramsStr.size(); ++j)
             {
+                size_t currentSize(holdingProgramsStr[j].size());
                 holdingPrograms.push_back(findProgramByName(programs, holdingProgramsStr[j]));
             }
 
@@ -104,25 +106,18 @@ vector<Program> getAllTheHoldingPrograms(vector<Program> programs)
     vector<Program> allTheHoldingPrograms;
     for(int i(0); i != programs.size(); ++i)
     {
-        //cout << "Nom du prog : " << programs[i].getName() << endl;
         vector<Program> holdingPrograms(programs[i].getHoldingPrograms());
-        //cout << "Nombre de progs fils : " << holdingPrograms.size() << endl;
         if(holdingPrograms.size() > 0)
         {
             for(int j(0); j != holdingPrograms.size(); ++j)
             {
-                //cout << "Prog fils : " << holdingPrograms[j].getName() << endl;
                 Program currentHoldingProgram = findProgramByName(allTheHoldingPrograms, holdingPrograms[j].getName());
-                cout << "Nom du holding : " << currentHoldingProgram.getName() << endl;
-                cout << "Poids du holding : " << currentHoldingProgram.getWeight() << endl;
-                //cout << "Déjà dans la liste ? (0 pour non, sinon oui) -> " << currentHoldingProgram.getWeight() << endl;
                 if(currentHoldingProgram.getWeight() == 0)
                 {
                     allTheHoldingPrograms.push_back(holdingPrograms[j]);
                 }
             }
         }
-        //cout << endl;
     }
 
     return allTheHoldingPrograms;
@@ -133,7 +128,6 @@ Program getTheFatherProgram(vector<Program> &programs, vector<Program> &holdingP
     for(int i(0); i != programs.size(); ++i)
     {
         Program program = findProgramByName(holdingPrograms, programs[i].getName());
-        cout << "Nom du prog :" << program.getName() << endl;
         if(program.getWeight() == 0)
         {
             return programs[i];

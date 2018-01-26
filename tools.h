@@ -10,7 +10,7 @@ void displayVector(std::vector<std::string> tab);
 Program createProgFromInput(std::string inputString);
 std::vector<Program> createProgsListFromInput(std::vector<std::string> input);
 Program findProgramByName(std::vector<Program> const &programs, std::string const &name);
-void setHoldingPrograms(std::vector<Program> &programs);
+void setAllHoldingPrograms(std::vector<Program> &programs);
 std::vector<Program> getAllTheHoldingPrograms(std::vector<Program> programs);
 Program getTheFatherProgram(std::vector<Program> &programs, std::vector<Program> &holdingPrograms);
 
