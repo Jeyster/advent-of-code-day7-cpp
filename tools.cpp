@@ -92,7 +92,6 @@ void setAllHoldingPrograms(vector<Program> &programs)
             vector<Program> holdingPrograms;
             for(int j(0); j != holdingProgramsStr.size(); ++j)
             {
-                size_t currentSize(holdingProgramsStr[j].size());
                 holdingPrograms.push_back(findProgramByName(programs, holdingProgramsStr[j]));
             }
 
@@ -131,6 +130,34 @@ Program getTheFatherProgram(vector<Program> &programs, vector<Program> &holdingP
         if(program.getWeight() == 0)
         {
             return programs[i];
+        }
+    }
+}
+
+void sumHoldingProgramsWeight(Program &program, vector<int> &weights)
+{
+    vector<Program> holdingPrograms(program.getHoldingPrograms());
+    int holdingProgramsSize(holdingPrograms.size());
+    for(int i(0); i != holdingProgramsSize; ++i)
+    {
+        weights.push_back(0);
+        sumWeightRecursively(holdingPrograms[i], weights[i]);
+        cout << "Poids total du programme " << holdingPrograms[i].getName() << " : " << weights[i] << endl << endl;
+    }
+}
+
+void sumWeightRecursively(Program &program, int &weight)
+{
+    weight += program.getWeight();
+
+    vector<Program> holdingPrograms(program.getHoldingPrograms());
+    int holdingProgramsSize(holdingPrograms.size());
+
+    if(holdingProgramsSize > 0)
+    {
+        for(int i(0); i != holdingProgramsSize; ++i)
+        {
+            sumWeightRecursively(holdingPrograms[i], weight);
         }
     }
 }

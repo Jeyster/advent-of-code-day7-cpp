@@ -49,11 +49,11 @@ void Program::display()
     cout << "Nom : " << this->m_name << endl;
     cout << "Poids : " << this->m_weight << endl;
 
-    cout << "Programmes fils : ";
+    cout << "Programmes fils et leur poids : ";
     vector<Program>::iterator itProgs;
     for (itProgs = this->m_holdingPrograms.begin(); itProgs != this->m_holdingPrograms.end(); ++itProgs)
     {
-        cout << itProgs->getName() << " ";
+        cout << itProgs->getName() << " (" << itProgs->getWeight() << ") ";
     }
     cout << endl << endl;
 }

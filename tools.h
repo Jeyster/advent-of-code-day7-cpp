@@ -9,9 +9,11 @@ std::vector<std::string> importInput(std::string fileName);
 void displayVector(std::vector<std::string> tab);
 Program createProgFromInput(std::string inputString);
 std::vector<Program> createProgsListFromInput(std::vector<std::string> input);
-Program findProgramByName(std::vector<Program> const &programs, std::string const &name);
+Program findProgramByName(std::vector<Program> &programs, std::string const &name);
 void setAllHoldingPrograms(std::vector<Program> &programs);
 std::vector<Program> getAllTheHoldingPrograms(std::vector<Program> programs);
 Program getTheFatherProgram(std::vector<Program> &programs, std::vector<Program> &holdingPrograms);
+void sumHoldingProgramsWeight(Program &program, std::vector<int> &weights);
+void sumWeightRecursively(Program &program, int &weight);
 
 #endif // TOOLS_H_INCLUDED
